@@ -31,8 +31,7 @@ export async function loginWithEmail(email, password) {
   } catch (error) {
     // console.error(error);
     // console.log(error.code);
-    return { errorcode: error.code };
-    // throw error;
+    throw error;
   }
 }
 
@@ -40,9 +39,13 @@ export async function signUpWithEmail(email, password) {
   const auth = getFirebaseAuth();
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password);
-    return user;
+    return user.user;
   } catch (error) {
-    console.error("Error logging in:", error);
+    // console.log(error.code);
+    // throw new Error("email exists or password too small.");
     throw error;
+    // const msg = e.code;
+    // console.log(msg);
+    // throw new Error("asdfasdf");
   }
 }

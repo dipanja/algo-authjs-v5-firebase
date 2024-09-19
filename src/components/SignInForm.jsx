@@ -1,11 +1,11 @@
 "use client";
 
-import { doCredentialLogin } from "@/app/actions";
+import { doCredentialSignup } from "@/app/actions";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const LoginForm = () => {
+const SignInForm = () => {
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -14,23 +14,23 @@ const LoginForm = () => {
     try {
       const formData = new FormData(event.currentTarget);
 
-      const response = await doCredentialLogin(formData);
-      router.push("/home");
+      const response = await doCredentialSignup(formData);
+      // console.log(response);
+      router.push("/login");
 
-      // // router.push("/home");
-      // if (!!response.error) {
-      //   // console.error(response.error);
-      //   setError(response.error.code);
-      // } else {
-      //   router.push("/home");
-      // }
+      if (!!response.error) {
+        setError(response.error.message);
+      } else {
+        router.push("/login");
+      }
     } catch (e) {
-      setError("Check your Credentials");
+      setError(e.message);
     }
   }
 
   return (
     <>
+      <div className="text-xl text-red-500">{error}</div>
       <form
         className="my-5 flex flex-col items-center border p-3 border-gray-200 rounded-md"
         onSubmit={onSubmit}
@@ -62,9 +62,8 @@ const LoginForm = () => {
           Ceredential Login
         </button>
       </form>
-      <div className="text-xl text-red-500">{error}</div>
     </>
   );
 };
 
-export default LoginForm;
+export default SignInForm;
