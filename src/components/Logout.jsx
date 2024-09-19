@@ -1,5 +1,5 @@
 import { doLogout } from "@/app/actions";
-export default function LButton() {
+export default function LogOutButton() {
   return (
     <form action={doLogout}>
       <button
