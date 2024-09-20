@@ -1,5 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
+// import NextAuth  from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+// import GoogleProvider from "next-auth/providers/google";
 import { loginWithEmail } from "./lib/firebaseAuth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -7,6 +9,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   providers: [
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // }),
     CredentialsProvider({
       credentials: {
         email: {},
@@ -22,7 +28,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return user;
         } catch (error) {
           // console.error("error code: ", code);
-          throw new Error(error.code);
+          // throw new Error(error.code);
+          throw new CredentialsSignin(error.code);
           // throw error;
         }
       },
