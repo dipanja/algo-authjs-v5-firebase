@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "../../auth";
-import LogOutButton from "../../components/Logout";
+import LogOut from "../../components/Logout";
 
 export default async function Home() {
   // export default function Home() {
@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <div>
       <h1>Welcome {session?.user.email}</h1>
-      <LogOutButton />
+      <LogOut />
     </div>
   );
 }
