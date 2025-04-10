@@ -42,15 +42,15 @@ export async function doCredentialSignup(formData) {
       formData.get("email"),
       formData.get("password"),
     );
-    return userCredential.uid;
+    return { success: true, uid: userCredential.uid };
   } catch (error) {
     switch (error.code) {
       case "auth/email-already-in-use":
-        throw new Error("Email already in use");
+        return { success: false, error: "Email already in use" };
       case "auth/weak-password":
-        throw new Error("Password too weak");
+        return { success: false, error: "Password too weak" };
       default:
-        throw new Error("An error occurred during signup");
+        return { success: false, error: "An error occurred during signup" };
     }
   }
 }

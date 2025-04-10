@@ -16,10 +16,10 @@ const SignInForm = () => {
 
       const response = await doCredentialSignup(formData);
       // console.log(response);
-      router.push("/login");
+      // router.push("/login");
 
-      if (!!response.error) {
-        setError(response.error.message);
+      if (!response.success) {
+        setError(response.error);
       } else {
         router.push("/login");
       }
